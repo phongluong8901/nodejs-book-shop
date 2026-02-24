@@ -1,0 +1,73 @@
+---docs
+express: frameowk cho api
+dotenv: .env file
+cors: cho phep url nao dc vao, * cho tat ca
+nodemon: cho hot reload khi code
+
+
+
+---
+node -v
+
+
+---install
+npm init
+--hoac
+npm init -y
+
+npm i express dotenv cors nodemon
+
+npm i --save sequelize
+npm i --save mysql2
+--chi install o dev-dependencie -> khi deploy no k len server
+npm install --save-dev sequelize-cli
+
+--tu hieu es5, es6, dung es6 trong es5 dc
+npm i -D @babel/core @babel/preset-env @babel/node
+
+npm i bcryptjs
+
+npm i jsonwebtoken
+
+npm i http-errors
+npm i joi
+
+--cai extension
+REST client
+
+---run
+node index.js
+--hoac
+npm run dev
+
+npm install cloudinary multer multer-storage-cloudinary uuid
+npm i uuid
+
+--chay sequelize
+cd src
+npx sequelize-cli init
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+npx sequelize db:migrate
+
+--xoa het bang
+npx sequelize db:migrate:undo:all
+
+--them truong ma k muon xoa bang
+-> npx sequelize-cli migration:generate --name add-refresh-token-to-user
+
+'use strict';
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    // Thêm cột refresh_token vào bảng Users mà không xóa bảng
+    await queryInterface.addColumn('Users', 'refresh_token', {
+      type: Sequelize.STRING
+    });
+  },
+
+  down: async (queryInterface, Sequelize) => {
+    // Nếu muốn hoàn tác thì xóa cột này đi
+    await queryInterface.removeColumn('Users', 'refresh_token');
+  }
+};
+
+-> npx sequelize-cli db:migrate
